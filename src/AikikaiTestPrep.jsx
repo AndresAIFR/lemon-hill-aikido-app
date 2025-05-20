@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import html2pdf from 'html2pdf.js';
 
 const AikikaiTestPrep = () => {
   // State for selected rank and technique confidence levels
@@ -167,6 +168,17 @@ const AikikaiTestPrep = () => {
     setReportMode(!reportMode);
   };
 
+  const downloadPdf = () => {
+    const element = document.querySelector('.report-view');
+    if (!element) return;
+    html2pdf(element, {
+      margin: 10,
+      filename: `Aikido_Report_${selectedRank}.pdf`,
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    });
+  };
+
   // Get techniques filtered by confidence level
   const getFilteredTechniques = (level) => {
     const map = generateTechniqueList();
@@ -195,12 +207,20 @@ const AikikaiTestPrep = () => {
         <div className="report-view bg-white p-6 max-w-5xl mx-auto">
           <div className="mb-6 flex justify-between items-center">
             <h1 className="text-2xl font-bold">Lemon Hill Aikido Training Report - {selectedRank}</h1>
-            <button 
-              onClick={toggleReportMode}
-              className="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded-md"
-            >
-              Back to App
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={downloadPdf}
+                className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md"
+              >
+                Download PDF
+              </button>
+              <button
+                onClick={toggleReportMode}
+                className="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded-md"
+              >
+                Back to App
+              </button>
+            </div>
           </div>
           
           <p className="text-sm text-gray-500 mb-8">Generated on {new Date().toLocaleDateString()}</p>
