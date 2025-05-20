@@ -33,9 +33,3 @@ Follow these steps to embed the component in a Wix Velo site:
 6. Set the iframe's source to the URL of your uploaded `index.html` file.
 7. Publish your site to see the React component running inside Wix.
 
-## How to Download the PDF
-
-1. Click **View Training Report** inside the app.
-2. In the report header, press the blue **Download PDF** button.
-3. Your browser will automatically save the report as a PDF file.
-
